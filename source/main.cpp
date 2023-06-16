@@ -27,8 +27,8 @@ int main(int argc, char** argv)
     
     cv::Mat out = src.clone();
     cv::equalizeHist(src, out);
-    cv::imshow("EQ_HITS", out);
-    cv::imshow("ORI", src);
+    cv::imwrite("EQ_HIST.png", out);
+    cv::imwrite("ORI.png", src);
 
     Ltm<uint8_t, uint8_t> ltm(src.data, out.data, src.cols, src.rows, H_NUMS, V_NUMS, 256, 256);
 #if DEBUG == 1
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 #else
     ltm.Run();
 #endif
-    cv::imshow("LTM", out);
+    cv::imwrite("LTM.png", out);
     cv::waitKey(0);
     return 0;
 }
