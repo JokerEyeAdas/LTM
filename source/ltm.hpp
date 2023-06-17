@@ -1,4 +1,3 @@
-
 /**
  * 
  * Function：LTM实现
@@ -155,8 +154,8 @@ public:
                 for (int idy = 0; idy < ver_pixel_nums_per_bin_; ++idy) {
                     for (int idx = 0; idx < hor_pixel_nums_per_bin_; ++idx) {
                         auto& val = div_img_data_[bin_idx][bin_idy][idy * hor_pixel_nums_per_bin_ + idx];
-                        //val = div_img_map_lut_[bin_idx][bin_idy][val];
-                        val = GetPixelMapVal(val, ave_bins_[bin_idx][bin_idy], (bin_idx * hor_pixel_nums_per_bin_ + idx), (bin_idy * ver_pixel_nums_per_bin_ + idy));
+                        val = div_img_map_lut_[bin_idx][bin_idy][val];
+                        //val = GetPixelMapVal(val, ave_bins_[bin_idx][bin_idy], (bin_idx * hor_pixel_nums_per_bin_ + idx), (bin_idy * ver_pixel_nums_per_bin_ + idy));
                     }
                 }
             }
@@ -192,6 +191,10 @@ public:
         assert((idx < hor_div_nums_) && (idy < ver_div_nums_));
         return div_img_data_[idx][idy];
     }  
+    _TO* GetLutMapPtr(int idx, int idy) {
+        assert((idx < hor_div_nums_) && (idy < ver_div_nums_));
+        return div_img_map_lut_[idx][idy];
+    }
 };
 
 
