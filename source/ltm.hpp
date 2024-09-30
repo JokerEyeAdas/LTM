@@ -133,7 +133,7 @@ public:
 
         for (int bin_idy = 0; bin_idy < ver_div_nums_; ++bin_idy) {
             for (int bin_idx = 0; bin_idx < hor_div_nums_; ++bin_idx) {
-                float ws = exp(-(fabs(ave - ave_bins_[bin_idx][bin_idy]) / in_max_) / phase_s);
+                float ws = exp(-(fabs(val - ave_bins_[bin_idx][bin_idy]) / in_max_) / phase_s);
                 int hc = bin_idx * hor_pixel_nums_per_bin_ + (hor_pixel_nums_per_bin_ >> 1);
                 int vc = bin_idy * ver_pixel_nums_per_bin_ + (ver_pixel_nums_per_bin_ >> 1);
                 float wd = exp(-(sqrt((x - hc) * (x - hc) + (y - vc) *(y - vc))) / phase_d);
@@ -154,8 +154,8 @@ public:
                 for (int idy = 0; idy < ver_pixel_nums_per_bin_; ++idy) {
                     for (int idx = 0; idx < hor_pixel_nums_per_bin_; ++idx) {
                         auto& val = div_img_data_[bin_idx][bin_idy][idy * hor_pixel_nums_per_bin_ + idx];
-                        val = div_img_map_lut_[bin_idx][bin_idy][val];
-                        //val = GetPixelMapVal(val, ave_bins_[bin_idx][bin_idy], (bin_idx * hor_pixel_nums_per_bin_ + idx), (bin_idy * ver_pixel_nums_per_bin_ + idy));
+                        //val = div_img_map_lut_[bin_idx][bin_idy][val];
+                        val = GetPixelMapVal(val, ave_bins_[bin_idx][bin_idy], (bin_idx * hor_pixel_nums_per_bin_ + idx), (bin_idy * ver_pixel_nums_per_bin_ + idy));
                     }
                 }
             }
