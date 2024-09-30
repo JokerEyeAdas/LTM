@@ -23,11 +23,19 @@ using namespace std;
 #define OUT_MAX 256
 
 #define DEBUG 1
+#define PADDING(x, p) (x + (p - 1)) & (~(p - 1))
 
 int main(int argc, char** argv)
 {
-    cv::Mat src = cv::imread("../../img/1.jpg", 0);
-    
+    if (argc != 2) {
+        std::cout << "usage:\n\t" << argv[0] << " image\n";
+    }
+    cv::Mat src = cv::imread(argv[1], 0);
+    cv::resize(src, src, cv::Size(PADDING(src.cols, H_NUMS), PADDING(src.rows, V_NUMS)));
+    if (src.empty()) {
+        std::cout << "read image error \n";
+        return -1;
+    }
     cv::Mat out = src.clone();
     cv::equalizeHist(src, out);
     cv::imwrite("EQ_HIST.png", out);
@@ -68,7 +76,7 @@ int main(int argc, char** argv)
             im.copyTo(roi);
         }
     }
-    imshow("lut", banlance_lut);
+    cv::imshow("lut", banlance_lut);
     cv::imwrite("LUT.png", banlance_lut);
 #else
     ltm.Run();
